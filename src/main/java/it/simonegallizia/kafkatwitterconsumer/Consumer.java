@@ -1,6 +1,7 @@
 package it.simonegallizia.kafkatwitterconsumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ public class Consumer {
 	@Autowired
 	TweetRepository repository;
 	
-	@KafkaListener(topics = "b2b-events")
+	@KafkaListener(topics = "${app.kafka.topic}")
 	public void readTwitter(Tweet tweet) {
 		log.info("saving tweet on mongodb " + tweet);
 		repository.save(tweet);
